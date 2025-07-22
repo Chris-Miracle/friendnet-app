@@ -1,0 +1,50 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@layer base {
+    body {
+        @apply bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900 text-white;
+        font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+}
+
+@layer components {
+    .glass-panel {
+        @apply bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl shadow-2xl;
+    }
+
+    .ai-button {
+        @apply px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl font-semibold text-white shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 active:scale-95;
+    }
+
+    .neural-grid {
+        background-image:
+            linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px);
+        background-size: 20px 20px;
+    }
+
+    .prediction-bar {
+        @apply h-4 bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 rounded-full shadow-lg transition-all duration-1000 ease-out;
+    }
+
+    .scanning-effect {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .scanning-effect::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg,
+                transparent,
+                rgba(59, 130, 246, 0.4),
+                transparent);
+        animation: scan 2s linear infinite;
+    }
+}

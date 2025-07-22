@@ -1,0 +1,10 @@
+/.idea
+/.vscode
+/node_modules
+/dist
+/build
+/coverage
+/coverage.lcov
+/coverage.json
+/coverage.json.gz
+/package-lock.json

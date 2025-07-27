@@ -36,10 +36,10 @@
               </div>
               <div class="space-y-2">
                 <h1 class="text-5xl font-black bg-gradient-to-r from-cyan-200 via-blue-300 to-purple-300 bg-clip-text text-transparent quantum-font tracking-wide">
-                  FRIENDNET AI
+                  FRIENDLY AI
                 </h1>
                 <p class="text-cyan-300 text-xl font-medium tracking-widest opacity-90">
-                  Quantum Neural Recognition Matrix v4.0
+                  Quantum Friendly Recognition Matrix v4.0
                 </p>
                 <div class="flex items-center space-x-4 mt-3">
                   <div class="flex items-center space-x-2">

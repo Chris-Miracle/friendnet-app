@@ -19,9 +19,9 @@
               </div>
               <div>
                 <h1 class="text-4xl font-black bg-gradient-to-r from-cyan-300 via-blue-400 to-purple-400 bg-clip-text text-transparent cyber-font">
-                  FRIENDNET AI
+                  FRIENDLY AI
                 </h1>
-                <p class="text-cyan-300 text-lg font-medium tracking-wide">Neural Friend Recognition System v1.0</p>
+                <p class="text-cyan-300 text-lg font-medium tracking-wide">Friendly Recognition System v1.0</p>
               </div>
             </div>
             <div class="flex items-center space-x-6">

@@ -5,6 +5,65 @@ export default defineNuxtConfig({
     '@vueuse/nuxt'
   ],
   css: ['~/assets/css/main.css'],
+  app: {
+    head: {
+      htmlAttrs: {
+        lang: 'en'
+      },
+      title: 'Friendly - Recognizing Friendly Faces.',
+      titleTemplate: '%s | Friendly',
+      meta: [
+        { charset: 'utf-8' },
+        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+        { 
+          name: 'description', 
+          content: 'Custom built Deep CNN Model to recognize and classify friendly faces' 
+        },
+        // Open Graph / Facebook
+        { property: 'og:type', content: 'website' },
+        { property: 'og:url', content: 'https://friendly.chrismba.com/' },
+        { property: 'og:title', content: 'Friendly - Recognizing Friendly Faces.' },
+        { property: 'og:description', content: 'Custom built Deep CNN Model to recognize and classify friendly faces' },
+        { property: 'og:image', content: 'https://friendly.chrismba.com/images/home.png' },
+        // Twitter
+        { name: 'twitter:card', content: 'summary_large_image' },
+        { name: 'twitter:url', content: 'https://friendly.chrismba.com/' },
+        { name: 'twitter:title', content: 'Friendly - Recognizing Friendly Faces.' },
+        { name: 'twitter:description', content: 'Custom built Deep CNN Model to recognize and classify friendly faces' },
+        { name: 'twitter:image', content: 'https://friendly.chrismba.com/images/home.png' },
+        // Additional SEO meta tags
+        { name: 'robots', content: 'index, follow' },
+        { name: 'author', content: 'Friendly' },
+        { name: 'keywords', content: 'friendly-model, artificial intelligence, friendnet, cnn,software machine learning, backend developer, AI cnn, web development, Laravel, PHP, Vue.js, Nuxt.js, Canada' }
+      ],
+      link: [
+        { rel: 'icon', type: 'image/x-icon', href: '/images/favicon.ico' },
+        { rel: 'apple-touch-icon', href: '/images/favicon.png' },
+        { rel: 'canonical', href: 'https://friendly.chrismba.com' }
+      ],
+      script: [
+        {
+          type: 'application/ld+json',
+          innerHTML: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'Person',
+            name: 'Chris',
+            jobTitle: 'Software Engineer',
+            url: 'https://chrismba.com',
+            sameAs: [
+              'https://github.com/chris-miracle',
+              'https://www.linkedin.com/in/miracle-chris-mba-379076115/'
+            ],
+            alumniOf: {
+              '@type': 'CollegeOrUniversity',
+              name: 'Fanshawe College'
+            }
+          })
+        }
+      ]
+    },
+    pageTransition: { name: 'page', mode: 'out-in' }
+  },
   tailwindcss: {
     config: {
       darkMode: 'class',

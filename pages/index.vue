@@ -14,8 +14,8 @@
               <Cpu class="w-7 h-7 text-black" />
             </div>
             <div>
-              <h1 class="text-3xl font-light tracking-wider text-shadow">FriendNet</h1>
-              <p class="text-gray-500 text-sm font-light tracking-wide">Neural Recognition System</p>
+              <h1 class="text-3xl font-light tracking-wider text-shadow">Friendly</h1>
+              <p class="text-gray-500 text-sm font-light tracking-wide">Recognizing Friendly Faces</p>
             </div>
           </div>
           <div class="flex items-center space-x-3">

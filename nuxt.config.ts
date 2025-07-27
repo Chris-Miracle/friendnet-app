@@ -10,7 +10,7 @@ export default defineNuxtConfig({
       htmlAttrs: {
         lang: 'en'
       },
-      title: 'Friendly - Recognizing Friendly Faces.',
+      title: 'Recognizing Friendly Faces.',
       titleTemplate: '%s | Friendly',
       meta: [
         { charset: 'utf-8' },

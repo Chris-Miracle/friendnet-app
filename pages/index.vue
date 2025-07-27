@@ -1,159 +1,106 @@
 <template>
-  <div class="min-h-screen cyber-neural-grid">
-    <!-- Floating Particles Background -->
-    <div class="floating-particles">
-      <div v-for="n in 50" :key="n" class="particle" :style="getParticleStyle(n)"></div>
+  <div class="min-h-screen bg-black text-white overflow-hidden font-serif">
+    <!-- Subtle Background Grid -->
+    <div class="fixed inset-0 opacity-30">
+      <div class="grid-pattern"></div>
     </div>
 
-    <!-- Holographic Header -->
-    <header class="relative z-20 p-6">
-      <div class="container mx-auto">
-        <div class="holo-panel p-8 backdrop-blur-xl">
-          <div class="flex items-center justify-between">
-            <div class="flex items-center space-x-6">
-              <div class="relative">
-                <div class="w-16 h-16 bg-gradient-to-br from-cyan-400 via-blue-500 to-purple-600 rounded-3xl flex items-center justify-center shadow-2xl shadow-cyan-500/50">
-                  <Cpu class="w-8 h-8 text-white animate-pulse" />
-                </div>
-                <div class="absolute -inset-2 bg-gradient-to-r from-cyan-400 to-purple-600 rounded-3xl opacity-20 animate-pulse-ring"></div>
-              </div>
-              <div>
-                <h1 class="text-4xl font-black bg-gradient-to-r from-cyan-300 via-blue-400 to-purple-400 bg-clip-text text-transparent cyber-font">
-                  FRIENDNET AI
-                </h1>
-                <p class="text-cyan-300 text-lg font-medium tracking-wide">Neural Friend Recognition Matrix v3.0</p>
-              </div>
+    <!-- Clean Header -->
+    <header class="relative z-10 px-6 py-8">
+      <div class="max-w-6xl mx-auto">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center space-x-5">
+            <div class="w-12 h-12 bg-white rounded-sm flex items-center justify-center transition-all hover:scale-105 hover:shadow-lg">
+              <Cpu class="w-7 h-7 text-black" />
             </div>
-            <div class="flex items-center space-x-6">
-              <div class="text-right">
-                <div class="text-sm text-gray-400 uppercase tracking-wider">System Status</div>
-                <div class="flex items-center space-x-3 mt-1">
-                  <div class="relative">
-                    <div class="w-3 h-3 bg-cyan-400 rounded-full animate-pulse"></div>
-                    <div class="absolute inset-0 w-3 h-3 bg-cyan-400 rounded-full animate-ping"></div>
-                  </div>
-                  <span class="text-cyan-300 font-semibold">ONLINE</span>
-                </div>
-              </div>
-              <div class="neural-activity">
-                <Activity class="w-6 h-6 text-cyan-400 animate-bounce" />
-              </div>
+            <div>
+              <h1 class="text-3xl font-light tracking-wider text-shadow">FriendNet</h1>
+              <p class="text-gray-500 text-sm font-light tracking-wide">Neural Recognition System</p>
             </div>
+          </div>
+          <div class="flex items-center space-x-3">
+            <div class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
+            <span class="text-sm text-gray-400 font-light">Online</span>
           </div>
         </div>
       </div>
     </header>
 
-    <div class="container mx-auto p-6 space-y-10 relative z-10">
-      <!-- Quantum Model Selection Panel -->
-      <div class="holo-panel p-8 border-l-4 border-cyan-400">
-        <h2 class="text-2xl font-bold mb-6 flex items-center cyber-font">
-          <Brain class="w-7 h-7 mr-3 text-purple-400 animate-pulse" />
-          DEEP NEURAL NETWORK MATRIX
-          <Sparkles class="w-5 h-5 ml-3 text-cyan-400 animate-spin" />
-        </h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+    <div class="max-w-6xl mx-auto px-6 py-16 space-y-20">
+      <!-- Model Selection -->
+      <section class="space-y-10">
+        <div class="text-center space-y-2">
+          <h2 class="text-2xl font-light text-gray-300 tracking-wide">Neural Networks</h2>
+          <p class="text-sm text-gray-500 font-light">Select recognition models to analyze your image</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div 
             v-for="model in availableModels" 
             :key="model.id"
-            class="relative group cursor-pointer transform transition-all duration-500 hover:scale-105"
+            class="group cursor-pointer card-hover"
             @click="toggleModel(model.id)"
           >
             <div 
-              class="relative p-6 rounded-2xl border-2 transition-all duration-500 backdrop-blur-lg"
-              :class="selectedModels.includes(model.id) 
-                ? 'border-cyan-400 bg-gradient-to-br from-cyan-500/20 via-blue-500/20 to-purple-500/20 shadow-2xl shadow-cyan-500/30 neural-glow' 
-                : 'border-gray-600 bg-gray-900/60 hover:border-gray-400 hover:bg-gray-800/70'"
+              class="relative p-8 border border-gray-800/60 bg-gray-900/20 glass-effect transition-all duration-300 hover:border-gray-600/80 hover:bg-gray-900/30"
+              :class="selectedModels.includes(model.id) ? 'border-white/60 bg-white/5' : ''"
             >
-              <!-- Neural Activity Indicator -->
-              <div class="absolute -top-2 -right-2">
+              <!-- Selection Indicator -->
+              <div class="absolute top-6 right-6">
                 <div 
-                  v-if="selectedModels.includes(model.id)"
-                  class="w-6 h-6 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full flex items-center justify-center animate-pulse-glow"
+                  class="w-5 h-5 border border-gray-600 rounded-full transition-all duration-200"
+                  :class="selectedModels.includes(model.id) ? 'bg-white border-white' : 'group-hover:border-gray-400'"
                 >
-                  <Check class="w-3 h-3 text-white" />
+                  <div 
+                    v-if="selectedModels.includes(model.id)"
+                    class="w-2 h-2 bg-black rounded-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+                  ></div>
                 </div>
-                <div 
-                  v-else
-                  class="w-6 h-6 border-2 border-gray-400 rounded-full hover:border-cyan-400 transition-colors"
-                ></div>
               </div>
 
-              <div class="flex items-center justify-between mb-4">
+              <div class="space-y-5">
                 <component 
                   :is="model.icon" 
-                  class="w-8 h-8 text-cyan-400 animate-pulse" 
+                  class="w-7 h-7 text-gray-500 transition-colors group-hover:text-white" 
                 />
-                <div class="text-right">
-                  <div class="text-xs text-gray-400 uppercase tracking-wide">Speed</div>
-                  <div class="text-sm font-bold text-cyan-300">{{ model.speed }}</div>
+                <div>
+                  <h3 class="font-medium mb-2 text-lg">{{ model.name }}</h3>
+                  <p class="text-sm text-gray-400 leading-relaxed font-light">{{ model.description }}</p>
+                </div>
+                <div class="flex justify-between items-center text-sm pt-2 border-t border-gray-800/50">
+                  <span class="text-gray-500 font-light">Accuracy</span>
+                  <span class="text-white font-medium">{{ model.accuracy }}%</span>
                 </div>
               </div>
-              
-              <h3 class="font-bold text-lg mb-2 cyber-font">{{ model.name }}</h3>
-              <p class="text-sm text-gray-300 mb-4 leading-relaxed">{{ model.description }}</p>
-              
-              <!-- Neural Accuracy Display -->
-              <div class="space-y-3">
-                <div class="flex justify-between items-center">
-                  <span class="text-xs text-gray-400 uppercase tracking-wide">Neural Accuracy</span>
-                  <span class="text-sm font-bold text-cyan-300">{{ model.accuracy }}%</span>
-                </div>
-                <div class="relative w-full bg-gray-800 rounded-full h-3 overflow-hidden">
-                  <div 
-                    class="neural-progress-bar h-full rounded-full transition-all duration-1000"
-                    :style="`width: ${model.accuracy}%; background: linear-gradient(90deg, #00f5ff, #bd00ff, #ff0080)`"
-                  ></div>
-                  <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer"></div>
-                </div>
-              </div>
-
-              <!-- Holographic Border -->
-              <div 
-                v-if="selectedModels.includes(model.id)"
-                class="absolute inset-0 rounded-2xl border-2 border-cyan-400 opacity-50 animate-pulse-border pointer-events-none"
-              ></div>
             </div>
-            
-            <!-- Neural Connection Lines -->
-            <div 
-              v-if="selectedModels.includes(model.id)"
-              class="absolute inset-0 rounded-2xl neural-connections pointer-events-none"
-            ></div>
           </div>
         </div>
         
-        <div class="flex justify-between items-center mt-8 p-4 bg-gray-900/50 rounded-xl backdrop-blur">
+        <div class="flex justify-between items-center pt-6">
           <button 
             @click="selectAllModels"
-            class="quantum-button-secondary"
+            class="text-sm text-gray-400 hover:text-white transition-colors underline underline-offset-4 font-light"
           >
-            <Shield class="w-4 h-4 mr-2" />
-            Activate All Neural Networks
+            {{ selectAllButtonText }}
           </button>
-          <div class="text-sm text-cyan-300 font-medium">
-            {{ selectedModels.length }} Neural Network{{ selectedModels.length !== 1 ? 's' : '' }} Active
+          <div class="text-sm text-gray-400 font-light">
+            {{ selectedModels.length }} of {{ availableModels.length }} selected
           </div>
         </div>
-      </div>
+      </section>
 
-      <!-- Quantum Upload Portal -->
-      <div class="holo-panel p-8 border-l-4 border-purple-400">
-        <h2 class="text-2xl font-bold mb-6 flex items-center cyber-font">
-          <Upload class="w-7 h-7 mr-3 text-cyan-400 animate-bounce" />
-          DEEP IMAGE ANALYSIS PORTAL
-          <div class="ml-3 flex space-x-1">
-            <div class="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></div>
-            <div class="w-2 h-2 bg-purple-400 rounded-full animate-pulse" style="animation-delay: 0.2s"></div>
-            <div class="w-2 h-2 bg-pink-400 rounded-full animate-pulse" style="animation-delay: 0.4s"></div>
-          </div>
-        </h2>
+      <!-- Upload Section -->
+      <section class="space-y-10">
+        <div class="text-center space-y-2">
+          <h2 class="text-2xl font-light text-gray-300 tracking-wide">Image Analysis</h2>
+          <p class="text-sm text-gray-500 font-light">Upload an image to identify faces using selected models</p>
+        </div>
         
         <div 
-          class="relative border-3 border-dashed border-gray-600 rounded-3xl p-12 text-center transition-all duration-500 backdrop-blur-lg quantum-portal"
+          class="relative border-2 border-dashed border-gray-800/60 transition-all duration-300 overflow-hidden glass-effect"
           :class="{ 
-            'border-cyan-400 bg-cyan-500/10 neural-scan-active': isDragging,
-            'neural-processing': isProcessing
+            'border-white/60 bg-white/5': isDragging,
+            'border-gray-700/80': isProcessing
           }"
           @dragover.prevent="isDragging = true"
           @dragleave.prevent="isDragging = false"
@@ -167,215 +114,172 @@
             class="hidden"
           >
           
-          <!-- Empty State -->
-          <div v-if="!selectedFile && !isProcessing" class="space-y-6">
-            <div class="relative">
-              <ImageIcon class="w-24 h-24 mx-auto text-gray-400 mb-6" />
-              <div class="absolute inset-0 w-24 h-24 mx-auto border-4 border-cyan-400/20 rounded-full animate-spin-slow"></div>
-            </div>
-            <div>
-              <p class="text-2xl font-bold mb-3 cyber-font">NEURAL SCAN PORTAL</p>
-              <p class="text-gray-300 mb-6 text-lg">Drop your image data here</p>
-              <div class="text-cyan-300 text-sm mb-6">--- OR ---</div>
-              <button 
-                @click="$refs.fileInput.click()"
-                class="quantum-button-primary"
-              >
-                <Upload class="w-5 h-5 mr-3" />
-                Initialize Upload Sequence
-              </button>
-            </div>
+          <!-- Upload State -->
+          <div v-if="!selectedFile && !isProcessing" class="p-20 text-center">
+            <ImageIcon class="w-16 h-16 mx-auto mb-8 text-gray-600" />
+            <p class="text-xl font-light mb-3 tracking-wide">Drop image here</p>
+            <p class="text-gray-500 mb-10 font-light">or</p>
+            <button 
+              @click="$refs.fileInput.click()"
+              class="px-8 py-3 bg-white text-black font-medium transition-all hover:bg-gray-100 hover:shadow-lg active:scale-95"
+            >
+              Choose File
+            </button>
           </div>
           
-          <!-- File Preview -->
-          <div v-else-if="selectedFile && !isProcessing" class="space-y-6">
-            <div class="relative inline-block">
-              <img 
-                :src="imagePreview" 
-                alt="Neural scan target"
-                class="max-w-sm max-h-80 mx-auto rounded-2xl shadow-2xl shadow-cyan-500/30 border-2 border-cyan-400/50"
-              >
-              <div class="absolute inset-0 rounded-2xl bg-gradient-to-tr from-cyan-400/20 to-purple-400/20 pointer-events-none"></div>
-            </div>
-            <div class="space-y-2">
-              <p class="font-bold text-xl cyber-font">{{ selectedFile.name }}</p>
-              <p class="text-cyan-300">{{ formatFileSize(selectedFile.size) }}</p>
-            </div>
-            <div class="flex space-x-4 justify-center">
-              <button 
-                @click="analyzeImage"
-                :disabled="!selectedModels.length"
-                class="quantum-button-primary disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                <Zap class="w-5 h-5 mr-3" />
-                INITIATE NEURAL SCAN
-              </button>
-              <button 
-                @click="clearFile"
-                class="quantum-button-secondary"
-              >
-                <span class="mr-2">⚡</span>
-                Reset Portal
-              </button>
+          <!-- Preview State -->
+          <div v-else-if="selectedFile && !isProcessing" class="p-10">
+            <div class="flex flex-col md:flex-row items-start space-y-8 md:space-y-0 md:space-x-10">
+              <div class="flex-shrink-0">
+                <img 
+                  :src="imagePreview" 
+                  alt="Preview"
+                  class="max-w-sm max-h-72 object-contain rounded-sm shadow-lg"
+                >
+              </div>
+              <div class="flex-1 space-y-8">
+                <div>
+                  <h3 class="font-medium mb-3 text-lg">{{ selectedFile.name }}</h3>
+                  <p class="text-sm text-gray-400 font-light">{{ formatFileSize(selectedFile.size) }}</p>
+                </div>
+                <div class="flex space-x-5">
+                  <button 
+                    @click="analyzeImage"
+                    :disabled="!selectedModels.length"
+                    class="px-8 py-3 bg-white text-black font-medium disabled:opacity-30 disabled:cursor-not-allowed transition-all hover:bg-gray-100 hover:shadow-lg active:scale-95"
+                  >
+                    Analyze Image
+                  </button>
+                  <button 
+                    @click="clearFile"
+                    class="px-8 py-3 border border-gray-600/80 text-gray-300 font-medium transition-all hover:border-gray-400 hover:text-white"
+                  >
+                    Clear
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
           
           <!-- Processing State -->
-          <div v-else-if="isProcessing" class="space-y-8">
-            <div class="relative">
-              <div class="w-32 h-32 mx-auto relative">
-                <!-- Outer Ring -->
-                <div class="absolute inset-0 border-4 border-cyan-400/30 rounded-full"></div>
-                <!-- Spinning Ring -->
-                <div class="absolute inset-0 border-4 border-transparent border-t-cyan-400 border-r-purple-400 rounded-full animate-spin"></div>
-                <!-- Inner Glow -->
-                <div class="absolute inset-4 bg-gradient-to-r from-cyan-400/20 to-purple-400/20 rounded-full animate-pulse"></div>
-                <!-- Center Icon -->
-                <Brain class="w-16 h-16 absolute inset-0 m-auto text-cyan-400 animate-pulse" />
-              </div>
+          <div v-else-if="isProcessing" class="p-20 text-center">
+            <div class="w-10 h-10 mx-auto mb-8">
+              <div class="w-full h-full border-2 border-gray-700 border-t-white rounded-full animate-spin"></div>
             </div>
-            <div class="space-y-4">
-              <p class="text-2xl font-bold cyber-font">DEEP ANALYSIS IN PROGRESS</p>
-              <p class="text-cyan-300 text-lg">{{ processingMessage }}</p>
-              <!-- Neural Progress Bar -->
-              <div class="w-full max-w-md mx-auto bg-gray-800 rounded-full h-4 overflow-hidden border border-cyan-400/30">
-                <div 
-                  class="neural-progress-bar h-full transition-all duration-500"
-                  :style="`width: ${processingProgress}%; background: linear-gradient(90deg, #00f5ff, #bd00ff, #ff0080)`"
-                ></div>
-                <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-shimmer"></div>
-              </div>
-              <div class="text-cyan-300 font-mono text-lg">{{ processingProgress }}% COMPLETE</div>
+            <p class="text-xl font-light mb-3 tracking-wide">{{ processingMessage }}</p>
+            <div class="w-80 mx-auto h-1 bg-gray-800 rounded-full overflow-hidden">
+              <div 
+                class="h-full bg-white transition-all duration-500 ease-out"
+                :style="`width: ${processingProgress}%`"
+              ></div>
             </div>
-          </div>
-
-          <!-- Quantum Portal Effects -->
-          <div class="absolute inset-0 rounded-3xl pointer-events-none overflow-hidden">
-            <div class="quantum-ripples"></div>
+            <p class="text-sm text-gray-400 mt-4 font-light">{{ processingProgress }}%</p>
           </div>
         </div>
-      </div>
+      </section>
 
-      <!-- Quantum Results Matrix -->
-      <div v-if="predictions" class="holo-panel p-8 border-l-4 border-green-400">
-        <h2 class="text-2xl font-bold mb-8 flex items-center cyber-font">
-          <BarChart3 class="w-7 h-7 mr-3 text-green-400 animate-pulse" />
-          DEEP NEURAL PREDICTIONS MATRIX
-          <div class="ml-4 px-3 py-1 bg-green-500/20 rounded-full text-sm font-medium text-green-300 border border-green-400/30">
-            ANALYSIS COMPLETE
-          </div>
-        </h2>
+      <!-- Results Section -->
+      <section v-if="predictions" class="space-y-10">
+        <div class="text-center space-y-2">
+          <h2 class="text-2xl font-light text-gray-300 tracking-wide">Analysis Results</h2>
+          <p class="text-sm text-gray-500 font-light">Neural network predictions and confidence scores</p>
+        </div>
         
-        <!-- Quantum Ensemble Result -->
-        <div v-if="predictions.ensemble" class="mb-10 p-8 bg-gradient-to-br from-green-600/20 via-cyan-600/20 to-purple-600/20 rounded-3xl border-2 border-green-400/40 backdrop-blur-lg quantum-result-glow">
-          <div class="flex items-center justify-between mb-6">
-            <h3 class="text-xl font-bold flex items-center cyber-font">
-              <Cpu class="w-6 h-6 mr-3 text-green-400 animate-pulse" />
-              DEEP ENSEMBLE PREDICTION
-            </h3>
-            <div class="px-4 py-2 bg-green-500/30 rounded-full border border-green-400/50">
-              <span class="text-sm font-bold text-green-300">
-                Confidence: {{ (predictions.ensemble.confidence * 100).toFixed(1) }}%
-              </span>
+        <!-- Ensemble Result -->
+        <div v-if="predictions.ensemble" class="p-10 border border-gray-800/60 bg-gray-900/20 glass-effect">
+          <div class="flex justify-between items-start mb-8">
+            <div>
+              <h3 class="text-xl font-medium mb-2">Ensemble Prediction</h3>
+              <p class="text-sm text-gray-400 font-light">Combined neural network result</p>
+            </div>
+            <div class="text-right">
+              <div class="text-sm text-gray-500 font-light">Confidence</div>
+              <div class="text-xl font-medium">{{ (predictions.ensemble.confidence * 100).toFixed(1) }}%</div>
             </div>
           </div>
-          <div class="text-center mb-6">
-            <div class="text-5xl font-black text-transparent bg-gradient-to-r from-green-400 via-cyan-400 to-blue-400 bg-clip-text mb-4 cyber-font animate-pulse">
-              {{ predictions.ensemble.predicted_class.toUpperCase() }}
-            </div>
-            <div class="text-2xl text-green-300 font-bold">
-              {{ (predictions.ensemble.max_probability * 100).toFixed(1) }}% Neural Certainty
-            </div>
+          
+          <div class="text-center py-12">
+            <div class="text-5xl font-light mb-4 text-shadow">{{ predictions.ensemble.predicted_class }}</div>
+            <div class="text-gray-400 font-light text-lg">{{ (predictions.ensemble.max_probability * 100).toFixed(1) }}% match</div>
           </div>
-          <!-- Quantum Confidence Visualization -->
-          <div class="w-full max-w-md mx-auto bg-gray-800 rounded-full h-6 overflow-hidden border-2 border-green-400/30">
+          
+          <div class="w-full h-2 bg-gray-800 rounded-full overflow-hidden mt-8">
             <div 
-              class="neural-progress-bar h-full transition-all duration-1000"
-              :style="`width: ${predictions.ensemble.max_probability * 100}%; background: linear-gradient(90deg, #00ff88, #00f5ff, #bd00ff)`"
+              class="h-full bg-gradient-to-r from-white to-gray-300 transition-all duration-1000 ease-out"
+              :style="`width: ${predictions.ensemble.max_probability * 100}%`"
             ></div>
           </div>
         </div>
         
-        <!-- Neural Network Results Grid -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
+        <!-- Individual Model Results -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <div 
-            v-for="(prediction, modelName) in predictions" 
+            v-for="(prediction, modelName) in individualPredictions" 
             :key="modelName"
-            class="bg-gray-900/70 rounded-2xl p-6 border border-gray-700/50 backdrop-blur-lg hover:border-cyan-400/30 transition-all duration-500 neural-card"
+            class="p-8 border border-gray-800/60 bg-gray-900/10 glass-effect space-y-6"
           >
-            <div v-if="modelName !== 'ensemble'">
-              <div class="flex items-center justify-between mb-6">
-                <h3 class="text-lg font-bold capitalize cyber-font">{{ modelName }}</h3>
-                <div class="flex items-center space-x-3">
+            <div class="flex justify-between items-center mb-6">
+              <h3 class="font-medium capitalize text-lg">{{ modelName }}</h3>
+              <div class="text-sm text-gray-400 font-light">
+                {{ (prediction.confidence * 100).toFixed(1) }}%
+              </div>
+            </div>
+            
+            <div class="space-y-4">
+              <div 
+                v-for="(prob, friend) in prediction.probabilities" 
+                :key="friend"
+                class="space-y-2"
+              >
+                <div class="flex justify-between text-sm">
+                  <span class="capitalize font-light">{{ friend }}</span>
+                  <span class="font-medium">{{ (prob * 100).toFixed(1) }}%</span>
+                </div>
+                <div class="w-full h-1 bg-gray-800 rounded-full overflow-hidden">
                   <div 
-                    class="w-4 h-4 rounded-full animate-pulse"
-                    :class="getConfidenceColor(prediction.confidence)"
+                    class="h-full bg-gray-400 transition-all duration-700 ease-out"
+                    :style="`width: ${prob * 100}%`"
                   ></div>
-                  <span class="text-sm font-bold text-cyan-300">
-                    {{ (prediction.confidence * 100).toFixed(1) }}%
-                  </span>
                 </div>
               </div>
-              
-              <div class="space-y-4">
-                <div 
-                  v-for="(prob, friend) in prediction.probabilities" 
-                  :key="friend"
-                  class="space-y-2"
-                >
-                  <div class="flex justify-between items-center">
-                    <span class="text-sm font-semibold capitalize text-gray-200">{{ friend }}</span>
-                    <span class="text-sm font-bold text-cyan-300">{{ (prob * 100).toFixed(1) }}%</span>
-                  </div>
-                  <div class="relative w-full bg-gray-800 rounded-full h-3 overflow-hidden border border-gray-600/50">
-                    <div 
-                      class="neural-progress-bar h-full rounded-full transition-all duration-1000"
-                      :style="`width: ${prob * 100}%; background: linear-gradient(90deg, #00f5ff, #bd00ff, #ff0080)`"
-                    ></div>
-                    <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer"></div>
-                  </div>
-                </div>
-              </div>
-              
-              <div class="mt-6 pt-4 border-t border-gray-700/50">
-                <div class="text-sm text-gray-400">
-                  Face Match: <span class="text-cyan-300 font-bold">{{ prediction.predicted_class }}</span>
-                </div>
-              </div>
+            </div>
+            
+            <div class="pt-4 border-t border-gray-800/50 text-sm text-gray-400 font-light">
+              Best match: <span class="text-white font-medium">{{ prediction.predicted_class }}</span>
             </div>
           </div>
         </div>
         
-        <!-- Quantum Metadata -->
-        <div v-if="metadata" class="mt-8 p-6 bg-gray-900/50 rounded-2xl backdrop-blur border border-gray-700/30">
-          <div class="text-sm text-gray-300 grid grid-cols-2 md:grid-cols-4 gap-6">
-            <div class="space-y-1">
-              <span class="block font-bold text-cyan-300 uppercase tracking-wide">Processing Time</span>
-              <span class="text-white font-mono">{{ metadata.processing_time }}s</span>
+        <!-- Metadata -->
+        <div v-if="metadata" class="p-8 border border-gray-800/60 bg-gray-900/5 glass-effect">
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-sm">
+            <div>
+              <div class="text-gray-500 mb-2 font-light">Processing Time</div>
+              <div class="font-mono text-lg">{{ metadata.processing_time }}s</div>
             </div>
-            <div class="space-y-1">
-              <span class="block font-bold text-cyan-300 uppercase tracking-wide">Deep Resolution</span>
-              <span class="text-white font-mono">{{ metadata.image_size?.[0] }} × {{ metadata.image_size?.[1] }}</span>
+            <div>
+              <div class="text-gray-500 mb-2 font-light">Resolution</div>
+              <div class="font-mono text-lg">{{ metadata.image_size?.[0] }} × {{ metadata.image_size?.[1] }}</div>
             </div>
-            <div class="space-y-1">
-              <span class="block font-bold text-cyan-300 uppercase tracking-wide">Neural Device</span>
-              <span class="text-white font-mono">{{ metadata.device }}</span>
+            <div>
+              <div class="text-gray-500 mb-2 font-light">Device</div>
+              <div class="font-mono text-lg">{{ metadata.device }}</div>
             </div>
-            <div class="space-y-1">
-              <span class="block font-bold text-cyan-300 uppercase tracking-wide">Networks Active</span>
-              <span class="text-white font-mono">{{ metadata.models_used?.length }}</span>
+            <div>
+              <div class="text-gray-500 mb-2 font-light">Models Used</div>
+              <div class="font-mono text-lg">{{ metadata.models_used?.length }}</div>
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
-      <!-- Quantum Error Panel -->
-      <div v-if="error" class="holo-panel p-6 border-l-4 border-red-400 bg-red-500/10">
+      <!-- Error State -->
+      <div v-if="error" class="p-8 border border-red-900/60 bg-red-900/10 glass-effect">
         <div class="flex items-center space-x-4">
-          <AlertCircle class="w-6 h-6 text-red-400 animate-pulse" />
+          <AlertCircle class="w-6 h-6 text-red-400 flex-shrink-0" />
           <div>
-            <h3 class="font-bold text-red-400 cyber-font">DEEP ERROR DETECTED</h3>
-            <p class="text-gray-300 mt-1">{{ error }}</p>
+            <h3 class="font-medium text-red-400 mb-1">Analysis Error</h3>
+            <p class="text-sm text-gray-300 font-light">{{ error }}</p>
           </div>
         </div>
       </div>
@@ -405,60 +309,50 @@ const processingProgress = ref(0)
 const dropZone = ref(null)
 const fileInput = ref(null)
 
-// Enhanced available models
+// Available models
 const availableModels = ref([
   {
     id: 'friendnet',
-    name: 'F1-X1',
-    description: 'Custom Convolutional deep learning architecture with neural pathways',
+    name: 'FriendNet',
+    description: 'Custom convolutional neural network optimized for face recognition',
     icon: Cpu,
-    accuracy: 98.2,
-    speed: 'Ultra Fast'
+    accuracy: 98.2
   },
   {
     id: 'resnet',
-    name: 'RESNET50',
-    description: 'Advanced residual neural networks with skip connections',
+    name: 'ResNet-50',
+    description: 'Deep residual network with skip connections for robust feature extraction',
     icon: Brain,
-    accuracy: 100.0,
-    speed: 'Fast'
+    accuracy: 100.0
   },
   {
     id: 'clip',
-    name: 'OPENAI-CLIP',
-    description: 'Multi-modal consciousness engine with cutting edge deep processing',
+    name: 'OpenAI CLIP',
+    description: 'Multi-modal neural network trained on diverse image-text pairs',
     icon: Zap,
-    accuracy: 99.1,
-    speed: 'Lightning'
+    accuracy: 99.1
   }
 ])
 
-// Computed property to get only selected model predictions
-const selectedModelPredictions = computed(() => {
-  if (!predictions.value) return null
+// Computed property to filter out ensemble predictions
+const individualPredictions = computed(() => {
+  if (!predictions.value) return {}
   
   const filtered = {}
-  selectedModels.value.forEach(modelId => {
-    if (predictions.value[modelId]) {
-      filtered[modelId] = predictions.value[modelId]
+  for (const [modelName, prediction] of Object.entries(predictions.value)) {
+    if (modelName !== 'ensemble') {
+      filtered[modelName] = prediction
     }
-  })
-  
-  // Always include ensemble if it exists
-  if (predictions.value.ensemble) {
-    filtered.ensemble = predictions.value.ensemble
   }
-  
   return filtered
 })
 
-const getParticleStyle = (index) => {
-  return {
-    left: Math.random() * 100 + '%',
-    animationDelay: Math.random() * 20 + 's',
-    animationDuration: (Math.random() * 10 + 10) + 's'
-  }
-}
+// Computed property for select all button text
+const selectAllButtonText = computed(() => {
+  return selectedModels.value.length === availableModels.value.length 
+    ? 'Deselect All' 
+    : 'Select All'
+})
 
 const toggleModel = (modelId) => {
   if (selectedModels.value.includes(modelId)) {
@@ -469,7 +363,15 @@ const toggleModel = (modelId) => {
 }
 
 const selectAllModels = () => {
-  selectedModels.value = availableModels.value.map(m => m.id)
+  const allModelIds = availableModels.value.map(m => m.id)
+  
+  if (selectedModels.value.length === allModelIds.length) {
+    // Deselect all
+    selectedModels.value = []
+  } else {
+    // Select all
+    selectedModels.value = allModelIds
+  }
 }
 
 const handleFileSelect = (event) => {
@@ -505,12 +407,6 @@ const formatFileSize = (size) => {
     : `${(kb / 1024).toFixed(1)} MB`
 }
 
-const getConfidenceColor = (score) => {
-  if (score > 0.9) return 'bg-green-400'
-  if (score > 0.75) return 'bg-yellow-400'
-  return 'bg-red-400'
-}
-
 const analyzeImage = async () => {
   if (!selectedFile.value || selectedModels.value.length === 0) return
 
@@ -527,19 +423,14 @@ const analyzeImage = async () => {
   formData.append('enhance_image', 'true')
 
   try {
-    // Get runtime config for API base URL
     const config = useRuntimeConfig()
     
-    processingMessage.value = 'Connecting to quantum servers...'
+    processingMessage.value = 'Connecting to models...'
     processingProgress.value = 25
     
     const res = await fetch(`${config.public.apiBaseUrl}/predict`, {
       method: 'POST',
-      body: formData,
-      headers: {
-        // Add any required auth headers here if needed
-        // 'Authorization': `Bearer ${authToken}`,
-      }
+      body: formData
     })
 
     if (!res.ok) {
@@ -547,15 +438,14 @@ const analyzeImage = async () => {
       throw new Error(errorData.detail || `HTTP ${res.status}: ${res.statusText}`)
     }
 
-    processingMessage.value = 'Running neural network analysis...'
+    processingMessage.value = 'Running analysis...'
     processingProgress.value = 60
 
     const data = await res.json()
     
-    processingMessage.value = 'Processing quantum results...'
+    processingMessage.value = 'Processing results...'
     processingProgress.value = 85
 
-    // Validate response structure
     if (!data.predictions) {
       throw new Error('Invalid response format: missing predictions')
     }
@@ -564,18 +454,16 @@ const analyzeImage = async () => {
     metadata.value = data.metadata || {
       processing_time: 'N/A',
       image_size: 'N/A',
-      device: 'Quantum GPU',
+      device: 'GPU',
       models_used: selectedModels.value
     }
 
     processingProgress.value = 100
-    processingMessage.value = 'Quantum analysis complete!'
+    processingMessage.value = 'Analysis complete'
     
   } catch (err) {
     console.error('Prediction error:', err)
     error.value = err.message || 'An error occurred during prediction'
-    
-    // Reset processing state on error
     processingProgress.value = 0
     processingMessage.value = ''
   } finally {
@@ -589,7 +477,6 @@ const analyzeImage = async () => {
   }
 }
 
-// Optional: Add method to test API connection
 const testConnection = async () => {
   try {
     const config = useRuntimeConfig()
@@ -601,9 +488,7 @@ const testConnection = async () => {
   }
 }
 
-// Optional: Initialize component
 onMounted(async () => {
-  // Test API connection on mount
   const isConnected = await testConnection()
   if (!isConnected) {
     console.warn('API connection test failed')
@@ -612,149 +497,76 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&display=swap');
 
-.cyber-font {
-  font-family: 'Orbitron', monospace;
-  letter-spacing: 0.05em;
+.font-serif {
+  font-family: 'Fraunces', serif;
 }
 
-.cyber-neural-grid {
-  background: 
-    radial-gradient(circle at 25% 25%, rgba(0, 245, 255, 0.15) 0%, transparent 50%),
-    radial-gradient(circle at 75% 75%, rgba(189, 0, 255, 0.15) 0%, transparent 50%),
-    radial-gradient(circle at 50% 0%, rgba(255, 0, 128, 0.1) 0%, transparent 60%),
-    linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 25%, #16213e 50%, #0a0a0f 75%, #0f0f23 100%);
-  background-size: 100% 100%, 100% 100%, 100% 100%, 400% 400%;
-  animation: cyberShift 20s ease-in-out infinite;
-  position: relative;
-  overflow-x: hidden;
-}
-
-.cyber-neural-grid::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: 
-    linear-gradient(90deg, transparent 49%, rgba(0, 245, 255, 0.03) 50%, transparent 51%),
-    linear-gradient(0deg, transparent 49%, rgba(189, 0, 255, 0.03) 50%, transparent 51%);
-  background-size: 100px 100px, 100px 100px;
-  pointer-events: none;
-  opacity: 0.5;
-}
-
-@keyframes cyberShift {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-}
-
-.floating-particles {
-  position: fixed;
-  top: 0;
-  left: 0;
+.grid-pattern {
+  background-image: 
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
   width: 100%;
   height: 100%;
-  pointer-events: none;
-  overflow: hidden;
-  z-index: 1;
 }
 
-.particle {
-  position: absolute;
-  width: 2px;
-  height: 2px;
-  background: linear-gradient(45deg, #00f5ff, #bd00ff);
-  border-radius: 50%;
-  animation: float linear infinite;
+/* Smooth transitions for all interactive elements */
+* {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-@keyframes float {
-  0% {
-    transform: translateY(100vh) rotate(0deg);
-    opacity: 0;
-  }
-  10% {
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(-10vh) rotate(360deg);
-    opacity: 0;
-  }
+/* Enhanced hover effects */
+button:hover {
+  transform: translateY(-0.5px);
 }
 
-/* Utility classes for buttons and visual effects */
-.quantum-button-primary {
-  @apply inline-flex items-center px-6 py-3 bg-cyan-500 hover:bg-cyan-600 text-white font-bold rounded-xl transition-all duration-300 shadow-lg shadow-cyan-400/20;
+button:active {
+  transform: translateY(0);
 }
 
-.quantum-button-secondary {
-  @apply inline-flex items-center px-6 py-3 bg-gray-800 hover:bg-gray-700 text-cyan-300 font-semibold rounded-xl transition-all duration-300 border border-cyan-400/40 shadow-md;
+.card-hover:hover {
+  transform: translateY(-2px);
 }
 
-.neural-progress-bar {
-  background-size: 200% 100%;
-  background-position: left center;
-  animation: pulseBar 2s linear infinite;
+/* Clean focus states */
+button:focus {
+  outline: 2px solid rgba(255, 255, 255, 0.3);
+  outline-offset: 3px;
 }
 
-@keyframes pulseBar {
-  0% {
-    background-position: left center;
-  }
-  100% {
-    background-position: right center;
-  }
+/* Glass morphism effect */
+.glass-effect {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
-.animate-pulse-border {
-  animation: pulseBorder 2s infinite ease-in-out;
+/* Text glow effect */
+.text-shadow {
+  text-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
 }
 
-@keyframes pulseBorder {
-  0% {
-    opacity: 0.3;
-  }
-  50% {
-    opacity: 0.7;
-  }
-  100% {
-    opacity: 0.3;
-  }
+/* Minimal scrollbar */
+::-webkit-scrollbar {
+  width: 3px;
 }
 
-.animate-pulse-ring {
-  animation: pulseRing 1.5s infinite ease-in-out;
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
 }
 
-@keyframes pulseRing {
-  0% {
-    transform: scale(0.9);
-    opacity: 0.4;
-  }
-  50% {
-    transform: scale(1.2);
-    opacity: 0.2;
-  }
-  100% {
-    transform: scale(0.9);
-    opacity: 0.4;
-  }
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 2px;
 }
 
-.animate-shimmer {
-  background-size: 200% 100%;
-  animation: shimmer 2s infinite linear;
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 
-@keyframes shimmer {
-  0% {
-    background-position: -200% 0;
-  }
-  100% {
-    background-position: 200% 0;
-  }
+/* Enhanced progress bar */
+.progress-bar {
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 </style>

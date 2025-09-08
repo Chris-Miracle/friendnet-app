@@ -1,9 +1,9 @@
 {
-  "_hash": "A5bOrcIHyI0kpFrPv4iMPJiYCtdWnZ64GlHV5qwtaXo",
+  "_hash": "2eJDcEdywo6jq86vzZEuKkxMM0nffFKiVhS0A3bzLnw",
   "project": {
-    "rootDir": "/Users/mac/Dev/my-projects/friendnet-app"
+    "rootDir": "/Users/chris/Dev/Frontend/my-projects/friendnet-app"
   },
   "versions": {
-    "nuxt": "3.17.7"
+    "nuxt": "3.18.1"
   }
 }

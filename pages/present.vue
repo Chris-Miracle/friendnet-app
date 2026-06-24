@@ -34,7 +34,7 @@
         <div class="max-w-5xl space-y-5">
           <p class="text-sm uppercase text-gray-500 font-light tracking-[0.2em]">Deep Learning Project</p>
           <h1 class="text-4xl md:text-6xl font-light leading-tight text-shadow">
-            FriendNet: Recognizing Friendly Faces
+            FriendNet: Recognizing Friendly Faces.
           </h1>
           <p class="max-w-3xl text-gray-400 font-light leading-relaxed">
             Understanding how FriendNet was built.
@@ -297,7 +297,7 @@ const currentIndex = ref(0)
 const slides = [
   {
     number: 1,
-    title: 'FriendNet: Recognizing Friendly Faces',
+    title: 'FriendNet: Recognizing Friendly Faces.',
     image: '/present/slides/slides.001.png',
     summary: 'FriendNet is a face-recognition project that learns to identify five known friends from images. The presentation compares a custom CNN built for this dataset with two stronger pretrained approaches: ResNet50 and CLIP.',
     howItWorks: [

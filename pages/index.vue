@@ -113,7 +113,7 @@
     <!-- Main Content (only visible when terms accepted) -->
     <div v-if="termsAccepted" class="opacity-100 transition-opacity duration-500">
       <!-- Subtle Background Grid -->
-      <div class="fixed inset-0 opacity-30">
+      <div class="fixed inset-0 opacity-30 pointer-events-none">
         <div class="grid-pattern"></div>
       </div>
 
@@ -175,7 +175,7 @@
         </section>
 
         <!-- Model Selection -->
-        <section class="space-y-10">
+        <section class="relative z-10 space-y-10">
           <div class="text-center space-y-2">
             <h2 class="text-2xl font-light text-gray-300 tracking-wide">Neural Networks</h2>
             <p class="text-sm text-gray-500 font-light">Select recognition models to analyze your image</p>
@@ -223,15 +223,17 @@
             </div>
           </div>
           
-          <div class="flex justify-between items-center pt-6">
+          <div class="flex flex-col gap-4 pt-6 sm:flex-row sm:items-center sm:justify-between">
             <button 
-              @click="selectAllModels"
-              class="text-sm text-gray-400 hover:text-white transition-colors underline underline-offset-4 font-light"
+              type="button"
+              @click.stop.prevent="toggleAllModels"
+              class="inline-flex min-h-11 items-center justify-center border border-gray-700/80 px-4 py-2 text-sm text-gray-300 transition-all hover:border-gray-400 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white/40"
+              :aria-label="allModelsSelected ? 'Deselect all neural networks' : 'Select all neural networks'"
             >
               {{ selectAllButtonText }}
             </button>
             <div class="text-sm text-gray-400 font-light">
-              {{ selectedModels.length }} of {{ availableModels.length }} selected
+              {{ selectedAvailableModels.length }} of {{ availableModels.length }} selected
             </div>
           </div>
         </section>
@@ -526,8 +528,20 @@ const individualPredictions = computed(() => {
 })
 
 // Computed property for select all button text
+const availableModelIds = computed(() => availableModels.value.map(model => model.id))
+
+const selectedAvailableModels = computed(() => {
+  const availableIds = new Set(availableModelIds.value)
+  return selectedModels.value.filter(modelId => availableIds.has(modelId))
+})
+
+const allModelsSelected = computed(() => {
+  return availableModelIds.value.length > 0 &&
+    availableModelIds.value.every(modelId => selectedModels.value.includes(modelId))
+})
+
 const selectAllButtonText = computed(() => {
-  return selectedModels.value.length === availableModels.value.length 
+  return allModelsSelected.value
     ? 'Deselect All' 
     : 'Select All'
 })
@@ -540,15 +554,11 @@ const toggleModel = (modelId) => {
   }
 }
 
-const selectAllModels = () => {
-  const allModelIds = availableModels.value.map(m => m.id)
-  
-  if (selectedModels.value.length === allModelIds.length) {
-    // Deselect all
+const toggleAllModels = () => {
+  if (allModelsSelected.value) {
     selectedModels.value = []
   } else {
-    // Select all
-    selectedModels.value = allModelIds
+    selectedModels.value = [...availableModelIds.value]
   }
 }
 
